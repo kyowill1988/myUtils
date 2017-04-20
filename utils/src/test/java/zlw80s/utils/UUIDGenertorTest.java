@@ -48,7 +48,7 @@ extends TestCase
 		
 		long datacenterId = 2;
 		long machineId = 3;		
-		System.out.println(IDGenerator.SnowFlake(datacenterId, machineId));
+		System.out.println(IDGenerator.snowFlake(datacenterId, machineId));
 		assert(true);    	
 	}
 	

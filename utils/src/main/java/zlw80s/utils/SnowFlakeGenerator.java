@@ -4,7 +4,7 @@ package zlw80s.utils;
  * twitter的snowflake算法 -- java实现
  * 
  */
-public class SnowFlake {
+public class SnowFlakeGenerator {
 
     /**
      * 起始的时间戳
@@ -37,7 +37,7 @@ public class SnowFlake {
     private long sequence = 0L; //序列号
     private long lastStmp = -1L;//上一次时间戳
 
-    public SnowFlake(long datacenterId, long machineId) {
+    public SnowFlakeGenerator(long datacenterId, long machineId) {
         if (datacenterId > MAX_DATACENTER_NUM || datacenterId < 0) {
             throw new IllegalArgumentException("datacenterId can't be greater than MAX_DATACENTER_NUM or less than 0");
         }

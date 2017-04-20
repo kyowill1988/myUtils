@@ -11,8 +11,8 @@ public class IDGenerator {
 		return UUIDGenerator.getUUID(name);
 	}
 	
-	public static String SnowFlake(long datacenterId, long machineId){
-		return String.valueOf(new SnowFlake(datacenterId,machineId).nextId());		
+	public static String snowFlake(long datacenterId, long machineId){
+		return String.valueOf(new SnowFlakeGenerator(datacenterId,machineId).nextId());		
 	}
 	
 }

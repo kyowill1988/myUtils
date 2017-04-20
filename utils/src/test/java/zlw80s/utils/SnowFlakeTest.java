@@ -33,7 +33,7 @@ public class SnowFlakeTest
      */    
     public void test(){
     	
-    	 SnowFlake snowFlake = new SnowFlake(2, 3);
+    	 SnowFlakeGenerator snowFlake = new SnowFlakeGenerator(2, 3);
 
          for (int i = 0; i < (1 << 12); i++) {
              System.out.println(snowFlake.nextId());

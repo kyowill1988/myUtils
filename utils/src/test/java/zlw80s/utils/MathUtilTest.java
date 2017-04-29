@@ -52,6 +52,14 @@ extends TestCase
 		assert(true);    	
 	}
 
+	
+	/**
+	 * 距离测试
+	 */
+	public void testdistince(){
+		double result = MathUtil.distince(3, 0, 0, 4);			
+		assertEquals(result, 5.0);		
+	}
 
 
 }

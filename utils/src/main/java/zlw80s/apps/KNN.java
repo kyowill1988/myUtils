@@ -13,8 +13,12 @@ import org.omg.Messaging.SyncScopeHelper;
 import zlw80s.utils.MathUtil;
 
 /**
- * KNN算法
- *	仅针对AB两种类别
+ * All rights Reserved, Designed By www.tydic.com
+ * @Title:  KNN.java   
+ * @Package zlw80s.apps   
+ * @Description: KNN算法
+ * @author: willzh
+ * @Copyright: 2017 www.tydic.com Inc. All rights reserved.
  */
 public class KNN {
 

@@ -8,8 +8,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-import org.omg.Messaging.SyncScopeHelper;
-
 import zlw80s.utils.MathUtil;
 
 /**

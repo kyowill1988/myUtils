@@ -1,8 +1,12 @@
 package zlw80s.utils;
 
 /**
- * twitter的snowflake算法 -- java实现
- * 
+ * All rights Reserved, Designed By www.tydic.com
+ * @Title:  SnowFlakeGenerator.java   
+ * @Package zlw80s.utils   
+ * @Description: twitter的snowflake算法   
+ * @author: willzh     
+ * @Copyright: 2017 www.tydic.com Inc. All rights reserved.
  */
 public class SnowFlakeGenerator {
 

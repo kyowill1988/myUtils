@@ -1,8 +1,11 @@
 package zlw80s.utils;
 
+import java.util.Date;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import zlw80s.apps.Apple;
 
 public class ClassUtilTest extends TestCase {
 		
@@ -34,5 +37,20 @@ public class ClassUtilTest extends TestCase {
 		
 	}
 	
+	public void testPrintFieldMessage(){
+		Apple apple = new Apple();
+		apple.setId("1");
+		apple.setName("One");
+		apple.setCreateTime(new Date());
+		apple.setAge(10);
+		
+		ClassUtil.printClassFieldMessage(apple);
+		
+	}
+	
+	public void testPrintConsMessage(){
+		String str = "hello";
+		ClassUtil.printClassConsMessage(str);
+	}
 	
 }	

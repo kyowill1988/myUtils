@@ -77,6 +77,11 @@ public class FileUtil {
 		}
 	}
 	
+	/**
+	 * 获取文件夹大小
+	 * @param file
+	 * @return
+	 */
 	public static long getDirSize(File file){
 		
 		long size = 0;
@@ -85,7 +90,7 @@ public class FileUtil {
 	}
 	
 	/**
-	 * 获取文件夹大小
+	 * 获取文件大小
 	 * @param file
 	 */
 	public static long getDirItemSize(File file,long size){

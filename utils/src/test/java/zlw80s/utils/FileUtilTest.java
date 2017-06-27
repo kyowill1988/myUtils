@@ -32,14 +32,14 @@ public class FileUtilTest extends TestCase {
 	public void testFileApplicationInfo(){
 		
 		String path = "D:\\test\\123.txt";
-		FileUtil.FileApplicationInfo(path);
+		FileUtil.fileApplicationInfo(path);
 	}
 	
 	public void testDeleteFile(){
 		
 		String path = "D:\\test\\123.txt";
 		File file = new File(path);
-		FileUtil.DeleteFile(file);
+		FileUtil.deleteFile(file);
 		
 	}
 	
@@ -47,7 +47,16 @@ public class FileUtilTest extends TestCase {
 		
 		String path = "D:\\test\\test1";
 		File file = new File(path);
-		FileUtil.DeleteFile(file);
+		FileUtil.deleteFile(file);
 	}
+	
+	public void testFileList(){
+		
+		String path = "D:\\test";
+		File file = new File(path);
+		FileUtil.fileList(file);
+		
+	}
+	
 	
 }	

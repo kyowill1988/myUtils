@@ -58,5 +58,14 @@ public class FileUtilTest extends TestCase {
 		
 	}
 	
+	/**
+	 * 
+	 */
+	public void testGetDirSize(){
+		
+		String path = "D:\\test";
+		File file = new File(path);
+		System.out.println(path+":"+FileUtil.getDirSize(file)); 	
+	}
 	
 }	

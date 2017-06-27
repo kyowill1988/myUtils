@@ -29,12 +29,35 @@ public class FileUtil {
 			System.out.println("是否为隐藏文件:"+file.isHidden());
 			System.out.println("最后修改时间:"+new Date(file.lastModified()));
 			System.out.println("文件长度:"+file.length());
+			
+			if(0==file.length()){
+				System.out.println("文件为空！");
+			}
+			
 		}
 		
-			
 	}
 	
-	
-	
+	/**
+	 * 删除文件
+	 * @param file
+	 */
+	public static void DeleteFile(File file){
+		
+		if(file.exists()){
+			if(file.isFile()){
+				
+			}else if(file.isDirectory()){
+				File[] files = file.listFiles();
+				for(int i=0;i<files.length;i++){
+					DeleteFile(files[i]);
+				}
+			}
+			
+			file.delete();
+		}else{
+			System.out.println("所要删除的文件不存在");
+		}
+	} 
 	
 }

@@ -76,5 +76,33 @@ public class FileUtil {
 			}
 		}
 	}
+	
+	public static long getDirSize(File file){
+		
+		long size = 0;
+		size = getDirItemSize(file,size);
+		return size;
+	}
+	
+	/**
+	 * 获取文件夹大小
+	 * @param file
+	 */
+	public static long getDirItemSize(File file,long size){
+		
+		if(file.isFile()){
+			size += file.length();
+		}else if(file.isDirectory()){
+			
+			File[] files = file.listFiles();
+			for(int i=0;i<files.length;i++){
+				size += getDirItemSize(files[i],size);
+			}
+		}
+		
+		return size;
+	}
+	
+	
 
 }

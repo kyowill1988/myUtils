@@ -4,13 +4,13 @@ import java.io.File;
 import java.util.Date;
 
 public class FileUtil {
-	
+
 	/**
 	 * 文件属性信息
 	 * @param path
 	 */
-	public static void FileApplicationInfo(String path){
-		
+	public static void fileApplicationInfo(String path){
+
 		File file = new File(path);
 		System.out.println("*****文件属性信息 *****");
 		System.out.println("文件是否存在："+file.exists());
@@ -29,35 +29,52 @@ public class FileUtil {
 			System.out.println("是否为隐藏文件:"+file.isHidden());
 			System.out.println("最后修改时间:"+new Date(file.lastModified()));
 			System.out.println("文件长度:"+file.length());
-			
+
 			if(0==file.length()){
 				System.out.println("文件为空！");
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * 删除文件
 	 * @param file
 	 */
-	public static void DeleteFile(File file){
-		
+	public static void deleteFile(File file){
+
 		if(file.exists()){
 			if(file.isFile()){
-				
+
 			}else if(file.isDirectory()){
 				File[] files = file.listFiles();
 				for(int i=0;i<files.length;i++){
-					DeleteFile(files[i]);
+					deleteFile(files[i]);
 				}
 			}
-			
+
 			file.delete();
 		}else{
 			System.out.println("所要删除的文件不存在");
 		}
 	} 
 	
+	/**
+	 * 遍历文件
+	 * @param file
+	 */
+	public static void fileList(File file){
+
+		if(file.isFile()){
+			System.out.println("文件-->"+file.getName());
+		}else if(file.isDirectory()){
+			System.out.println("文件目录-->"+file.getName());
+			File[] files = file.listFiles();
+			for(int i=0;i<files.length;i++){
+				fileList(files[i]);
+			}
+		}
+	}
+
 }

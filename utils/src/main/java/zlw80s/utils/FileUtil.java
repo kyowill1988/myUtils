@@ -1,6 +1,16 @@
 package zlw80s.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 public class FileUtil {
@@ -108,6 +118,59 @@ public class FileUtil {
 		return size;
 	}
 	
+	public static void fileInputStreamRead(String path) throws IOException{
+		
+		int temp = -1;
+		FileInputStream fis = new FileInputStream(path);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		while((temp=bis.read())!=-1){
+			System.out.println((char)temp);
+		}
+		
+		bis.close();
+		fis.close();
+		
+	}
+	
+	public static void fileRead(String path) throws IOException{
+		
+		String temp = null;
+		FileReader fr = new FileReader(path);
+		BufferedReader br = new BufferedReader(fr);
+		while((temp=br.readLine())!=null){
+			System.out.println(temp);
+		}
+		
+		br.close();
+		fr.close();
+		
+	}
+	
+	public static void fileOutStreamRead(String path,char[] inputs) throws IOException{
+		
+		FileOutputStream fos = new FileOutputStream(path);
+		BufferedOutputStream bos = new BufferedOutputStream(fos);
+		for(char input:inputs){
+			bos.write(input);
+		}
+		
+		bos.close();
+		fos.close();
+	}
+
+	public static void fileWriter(String path,String[] inputs) throws IOException{
+		
+		FileWriter fw = new FileWriter(path);
+		BufferedWriter bw = new BufferedWriter(fw);
+		PrintWriter pw = new PrintWriter(bw);
+		for(String input:inputs){
+			pw.println(input);
+		}
+		
+		pw.close();
+		bw.close();
+		fw.close();
+	}
 	
 
 }

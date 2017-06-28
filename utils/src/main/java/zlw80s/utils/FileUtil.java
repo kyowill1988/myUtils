@@ -6,12 +6,15 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.util.Date;
 
 public class FileUtil {
@@ -70,7 +73,7 @@ public class FileUtil {
 			System.out.println("所要删除的文件不存在");
 		}
 	} 
-	
+
 	/**
 	 * 遍历文件
 	 * @param file
@@ -87,108 +90,108 @@ public class FileUtil {
 			}
 		}
 	}
-	
+
 	/**
 	 * 获取文件夹大小
 	 * @param file
 	 * @return
 	 */
 	public static long getDirSize(File file){
-		
+
 		long size = 0;
 		size = getDirItemSize(file,size);
 		return size;
 	}
-	
+
 	/**
 	 * 获取文件大小
 	 * @param file
 	 */
 	public static long getDirItemSize(File file,long size){
-		
+
 		if(file.isFile()){
 			size += file.length();
 		}else if(file.isDirectory()){
-			
+
 			File[] files = file.listFiles();
 			for(int i=0;i<files.length;i++){
 				size += getDirItemSize(files[i],size);
 			}
 		}
-		
+
 		return size;
 	}
-	
+
 	public static void fileInputStreamRead(String path) throws IOException{
-		
+
 		int temp = -1;
 		FileInputStream fis = new FileInputStream(path);
 		BufferedInputStream bis = new BufferedInputStream(fis);
 		while((temp=bis.read())!=-1){
 			System.out.println((char)temp);
 		}
-		
+
 		bis.close();
 		fis.close();
-		
+
 	}
-	
+
 	public static void fileRead(String path) throws IOException{
-		
+
 		String temp = null;
 		FileReader fr = new FileReader(path);
 		BufferedReader br = new BufferedReader(fr);
 		while((temp=br.readLine())!=null){
 			System.out.println(temp);
 		}
-		
+
 		br.close();
 		fr.close();
-		
+
 	}
-	
+
 	public static void fileOutStreamRead(String path,char[] inputs) throws IOException{
-		
+
 		FileOutputStream fos = new FileOutputStream(path);
 		BufferedOutputStream bos = new BufferedOutputStream(fos);
 		for(char input:inputs){
 			bos.write(input);
 		}
-		
+
 		bos.close();
 		fos.close();
 	}
 
 	public static void fileWriter(String path,String[] inputs) throws IOException{
-		
+
 		FileWriter fw = new FileWriter(path);
 		BufferedWriter bw = new BufferedWriter(fw);
 		PrintWriter pw = new PrintWriter(bw);
 		for(String input:inputs){
 			pw.println(input);
 		}
-		
+
 		pw.close();
 		bw.close();
 		fw.close();
 	}
-	
+
 	public static void fileAppendWriter(String name,String[] inputs) throws IOException{
-		
+
 		FileWriter fw = new FileWriter(name,true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		PrintWriter pw = new PrintWriter(bw);
 		for(String input:inputs){
 			pw.print(input);
 		}
-		
+
 		pw.close();
 		bw.close();
 		fw.close();
-		
+
 	}
-	
-	
+
+
 	public static void copyFile(String oldPath,String newPath){
 
 		int byteRead = 0;
@@ -209,7 +212,7 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	public static void copyFolder(String oldPath,String newPath){
 		try{
@@ -246,5 +249,93 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 	}
+
+
+	public static void cutFile(String path,String destFolder,final int size) throws IOException{
+
+		int fsize = size * 1024;
+		File oldFile = new File(path);
+		if(!oldFile.exists()){
+			throw new FileNotFoundException();
+		}
+
+		String fdestFolderName = null;
+
+		//目标文件夹为空时，本地创建一个文件夹，用于存放分割后的文件
+		if(null == destFolder){
+			String folderName = oldFile.getParent()+ "\\" + oldFile.getName().substring(0,oldFile.getName().indexOf('.'))+"-cut";
+			File newFolder = new File(folderName);
+			System.out.println(folderName);
+			newFolder.mkdir();
+			fdestFolderName = folderName;
+		}else{
+			fdestFolderName = destFolder;
+		}
+
+		int number = 0;
+		int fileLength = (int)oldFile.length();
+		number = fileLength / fsize;
+		System.out.println(fileLength);
+
+		oldFile.length();
+		//读取文件并进行分割
+		RandomAccessFile inn = new RandomAccessFile(oldFile,"r");
+		int i = 0;
+		int j = 0;
+		int max = 0;
+		for(;j<number;j++){
+			File outFile = new File(fdestFolderName + File.separator + oldFile.getName() + j + ".temp");
+			RandomAccessFile outt = new RandomAccessFile(outFile,"rw");
+			max += fsize;
+			for(;i<max;i++){
+				outt.write(inn.read());
+			}
+			outt.close();
+		}
+		
+		File outFile = new File(fdestFolderName + File.separator + oldFile.getName() + j + ".temp");
+		RandomAccessFile outt = new RandomAccessFile(outFile,"rw");
+		//文件大小小于size时
+		for(;i<fileLength;i++){
+			outt.write(inn.read());
+		}
+		outt.close();
+		inn.close();
+		
+	}
+	
+	/**
+	 * 将分割后的文件合并
+	 * @param fileName 合并之后的文件
+	 * @param filterFolder 分割文件所在目录
+	 * @param filterName 分割后的文件后缀
+	 * @throws IOException
+	 */
+	public static void unite(String fileName,String filterFolder,final String filterName) throws IOException{
+		File[] tt;
+		File inFile = new File(filterFolder);
+		File outFile = new File(fileName);
+		RandomAccessFile outt = new RandomAccessFile(outFile,"rw");
+		
+		tt = inFile.listFiles(new FilenameFilter(){
+			public boolean accept(File dir,String name){
+				String rr = new File(name).toString();
+				return rr.endsWith(filterName);
+			}
+		});
+		
+		for(int i = 0;i<tt.length;i++){
+			RandomAccessFile inn = new RandomAccessFile(tt[i],"r");
+			int c = 0;
+			while((c=inn.read())!= -1){
+				outt.write(c);
+			}
+			
+		}
+		outt.close();
+		
+	}
+	
+
 
 }

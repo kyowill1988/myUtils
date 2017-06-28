@@ -91,7 +91,11 @@ public class FileUtilTest extends TestCase {
 		FileUtil.fileWriter(path,inputs);
 	}
 	
-	
+	public void testFileAppendWriter() throws Exception{
+		String path = "D:\\test\\223.txt";
+		String[] inputs = new String[]{"who,","where,","what"};
+		FileUtil.fileAppendWriter(path,inputs);
+	}
 	
 	
 }	

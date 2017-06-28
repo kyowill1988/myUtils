@@ -1,6 +1,7 @@
 package zlw80s.utils;
 
 import java.io.File;
+import java.io.IOException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -108,9 +109,28 @@ public class FileUtilTest extends TestCase {
 		String oldPath = "D:\\test";
 		String newPath = "D:\\test2";
 		FileUtil.copyFolder(oldPath, newPath);
+	}
+	
+	public void testCutFile() throws IOException{
+		
+		String oldFilePath = "D:\\test\\123.txt";
+		String destFolder = null;
+		int size = 1;
+		FileUtil.cutFile(oldFilePath, destFolder,size);
 		
 	}
-
 	
+	public void testUniteFile() throws IOException{
+		
+		String fileName = "D:\\test\\new123.txt";
+		String filterFolder = "D:\\test\\123-cut";
+		String filterName = "temp";
+		FileUtil.unite(fileName, filterFolder, filterName);
+	}
+	
+	
+	
+	
+
 	
 }	

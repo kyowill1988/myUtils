@@ -68,4 +68,30 @@ public class FileUtilTest extends TestCase {
 		System.out.println(path+":"+FileUtil.getDirSize(file)); 	
 	}
 	
+	public void testFileInputStreamRead() throws Exception{
+		String path = "D:\\test\\2.png";
+		FileUtil.fileInputStreamRead(path);
+	}
+	
+	public void testFileRead() throws Exception{
+		String path = "D:\\test\\123.txt";
+		FileUtil.fileRead(path);
+	}
+	
+	
+	public void testFileOutStreamWriter() throws Exception{
+		String path = "D:\\test\\3.png";
+		char[] inputs = new char[]{'A','B'};
+		FileUtil.fileOutStreamRead(path,inputs);
+	}
+	
+	public void testFileWriter() throws Exception{
+		String path = "D:\\test\\223.txt";
+		String[] inputs = new String[]{"yes","we","can"};
+		FileUtil.fileWriter(path,inputs);
+	}
+	
+	
+	
+	
 }	

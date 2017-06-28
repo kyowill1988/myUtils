@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -188,6 +189,62 @@ public class FileUtil {
 	}
 	
 	
+	public static void copyFile(String oldPath,String newPath){
+
+		int byteRead = 0;
+
+		try{
+			File oldFile = new File(oldPath);
+			if(oldFile.exists()){
+				InputStream inputStream = new FileInputStream(oldPath);
+				FileOutputStream fos = new FileOutputStream(newPath);
+				byte[] buffer = new byte[1024];
+				while((byteRead=inputStream.read(buffer))!= -1){
+					fos.write(buffer, 0, byteRead);
+				}
+				inputStream.close();
+			}
+		}catch(Exception e){
+			System.out.println("复制单个文件出错");
+			e.printStackTrace();
+		}
+	}
 	
+
+	public static void copyFolder(String oldPath,String newPath){
+		try{
+			(new File(newPath)).mkdirs();
+			File oldFile = new File(oldPath);
+			String[] files = oldFile.list();
+			File temp = null;
+			for(int i=0;i<files.length;i++){
+				if(oldPath.endsWith(File.separator)){
+					temp = new File(oldPath + files[i]);
+				}else{
+					temp = new File(oldPath + File.separator + files[i]);
+				}
+
+				if(temp.isFile()){
+					FileInputStream fis = new FileInputStream(temp);
+					FileOutputStream fo = new FileOutputStream(newPath + "/" + (temp.getName()).toString());
+					byte[] buffer = new byte[1024*5];
+					int len = 0;
+					while((len= fis.read(buffer))!= -1){
+						fo.write(buffer, 0, len);
+					}
+					fo.flush();
+					fo.close();
+					fis.close();
+				}
+
+				if(temp.isDirectory()){
+					copyFolder(oldPath + "/" + files[i],newPath + "/"+ files[i]);
+				}
+			}
+		}catch(Exception e){
+			System.out.println("复制文件夹出错");
+			e.printStackTrace();
+		}
+	}
 
 }

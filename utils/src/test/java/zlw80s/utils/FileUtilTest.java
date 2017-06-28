@@ -97,5 +97,20 @@ public class FileUtilTest extends TestCase {
 		FileUtil.fileAppendWriter(path,inputs);
 	}
 	
+	public void testCopyFile(){
+		String oldPath = "D:\\test\\223.txt";
+		String newPath = "D:\\test\\323.txt";
+		FileUtil.copyFile(oldPath, newPath);
+	}
+
+	public void testCopyFolder(){
+		
+		String oldPath = "D:\\test";
+		String newPath = "D:\\test2";
+		FileUtil.copyFolder(oldPath, newPath);
+		
+	}
+
+	
 	
 }	

@@ -172,5 +172,22 @@ public class FileUtil {
 		fw.close();
 	}
 	
+	public static void fileAppendWriter(String name,String[] inputs) throws IOException{
+		
+		FileWriter fw = new FileWriter(name,true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		PrintWriter pw = new PrintWriter(bw);
+		for(String input:inputs){
+			pw.print(input);
+		}
+		
+		pw.close();
+		bw.close();
+		fw.close();
+		
+	}
+	
+	
+	
 
 }

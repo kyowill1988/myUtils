@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.Date;
 
 public class FileUtil {
@@ -335,6 +337,114 @@ public class FileUtil {
 		outt.close();
 		
 	}
+	
+	
+	public static String newfileReader(File fileName){
+		String fileContent = null;
+		FileInputStream fis = null;
+		FileChannel fc = null;
+		
+		try {
+			fis = new FileInputStream(fileName);
+			fc = fis.getChannel();
+			ByteBuffer bb = ByteBuffer.allocate(10000000);
+			try {
+				fc.read(bb);
+				bb.flip();
+				fileContent = new String(bb.array());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fc.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return fileContent;
+	}
+	
+
+	
+	public static void newfileWriter(File fileName,String s){
+
+		FileOutputStream fos = null;
+		FileChannel fc = null;
+		byte[] bts = s.getBytes();
+		
+		try {
+			fos = new FileOutputStream(fileName);
+			fc = fos.getChannel();
+			ByteBuffer bb = ByteBuffer.allocate(bts.length);
+			try {
+				bb.put(bts);
+				bb.flip();
+				fc.write(bb);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fc.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void newCopy(String srcFile,String destFile) throws IOException{
+		
+		long begin = System.currentTimeMillis();
+		ByteBuffer bb = ByteBuffer.allocate(100000);
+		
+		FileInputStream fis = new FileInputStream(srcFile);
+		FileChannel in = fis.getChannel();
+		
+		FileOutputStream fos = new FileOutputStream(destFile);
+		FileChannel out = fos.getChannel();
+		
+		int len = -1;
+		while((len=in.read(bb))!=-1){
+			bb.flip();
+			out.write(bb);
+			bb.clear();
+		}
+		
+		long end = System.currentTimeMillis();
+		System.out.println(end - begin);
+		out.close();
+		in.close();
+		fos.close();
+		fis.close();
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 

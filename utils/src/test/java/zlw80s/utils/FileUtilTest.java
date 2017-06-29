@@ -1,6 +1,7 @@
 package zlw80s.utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import junit.framework.Test;
@@ -158,5 +159,12 @@ public class FileUtilTest extends TestCase {
 		FileUtil.newCopy(srcFile, destFile);
 		
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 }	

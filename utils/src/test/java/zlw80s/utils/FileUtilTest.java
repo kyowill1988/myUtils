@@ -1,6 +1,7 @@
 package zlw80s.utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import junit.framework.Test;
@@ -129,8 +130,41 @@ public class FileUtilTest extends TestCase {
 	}
 	
 	
+	public void testNewFileReader(){
+		
+		String fileName = "D:\\test\\new123.txt";
+		File file = new File(fileName);
+		if(file.exists()){
+			System.out.println(FileUtil.newfileReader(file));
+		}else{
+			System.out.println("文件不存在");
+		}
+		
+	}
 	
-	
+	public void testNewFileWriter(){
+		
+		String fileName = "D:\\test\\new123.txt";
+		File file = new File(fileName);
+		if(file.exists()){
+			FileUtil.newfileWriter(file,"222");
+		}else{
+			System.out.println("文件不存在");
+		}
+	}
 
+	public void testNewCopy() throws IOException{
+		String srcFile = "D:\\test\\new123.txt";
+		String destFile = "D:\\test\\new123123.txt";
+		FileUtil.newCopy(srcFile, destFile);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }	

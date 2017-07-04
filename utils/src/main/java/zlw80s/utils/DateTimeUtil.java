@@ -1,5 +1,6 @@
 package zlw80s.utils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,4 +46,14 @@ public class DateTimeUtil {
 		
 		
 	}
+	
+	
+	public static long getDayDiff(Date beginDate,Date endDate){
+		
+		long days = 0;
+		long nd = 1000 * 60 * 60 * 24;
+		days = (endDate.getTime() - beginDate.getTime()) / nd;
+		return days;
+	}
+	
 }
